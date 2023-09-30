@@ -8,7 +8,7 @@ const mulberry32 = (a: number) => {
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
   }
 };
-const rand = mulberry32(23);
+const rand = mulberry32(13423);
 
 export class Neuron {
   constructor(size: number, label = '') {

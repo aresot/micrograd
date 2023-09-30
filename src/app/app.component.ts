@@ -48,6 +48,7 @@ export class AppComponent {
     ].map(vector => vector.map(val => new Value(val)));
     const ys = [1, -1, -1, 1].map(val => new Value(val));
     console.log('inputs', inputs);
+    console.log('goal', ys.map(y => y.value));
 
     let loss = new Value(0);
     let step = 0.01;
@@ -63,10 +64,14 @@ export class AppComponent {
         loss = loss.add(delta.pow(2));
       }
       loss.backprop();
-      console.log(`loss=${loss.value} step=${step}`);
       mlp.adjust(step);
       step *= 0.999;
     }
+    console.log(`loss=${loss.value} step=${step}`);
+    const outs = inputs.map(vector => {
+      return mlp.call(vector)[0];
+    });
+    console.log('outs', outs.map(out => out.value));
 
     // console.log(loss.print().join('\n'));
   }
